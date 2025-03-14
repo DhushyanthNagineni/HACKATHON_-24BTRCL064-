@@ -153,7 +153,7 @@ def set_alarm():
         speak("Invalid time format. Please use HH:MM AM/PM.")
 
 def stop_alarm():
-    """Stops an ongoing alarm."""
+    # Stops an ongoing alarm.
     speak("Do you want to stop the alarm?")
     response = input("Enter response: ").strip().lower()
     if "yes" in response:
@@ -180,4 +180,4 @@ def start_alarm_thread(alarm_time):
 
     threading.Thread(target=alarm_checker, daemon=True).start()
 
-# Run the assistant
+
