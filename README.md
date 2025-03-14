@@ -2,17 +2,17 @@
 
 This is repository created for hackathon
 
-JAIN UNIVERSITY PYHAKATHON
+JAIN UNIVERSITY PYHACKATHON
 
 # How to use
 
 1)First install the packages 
 
-'''
+```python
 
 pip install requirments.txt
 
-'''
+```
 2) Down load app.py and functions.py and keep them in same folder
 
 
