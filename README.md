@@ -5,7 +5,7 @@ This is repository created for hackathon
 JAIN UNIVERSITY PYHACKATHON
 
 # How to use
-
+## Make sure you are conected to internet
 1)First install the packages 
 
 ```python
