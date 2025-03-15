@@ -1,7 +1,7 @@
 from  functions import *
 
 greetings =['good morning', 'good evening', 'hi', 'hello']
-speak("How can I assist you?, Dhushyanth")
+speak("How can I assist you?")
 
 
 while True:
