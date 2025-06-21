@@ -1,0 +1,6 @@
+Flask==2.3.3
+tensorflow==2.15.0
+Pillow==10.3.0
+scikit-learn==1.4.1
+joblib==1.4.2
+matplotlib==3.8.4
