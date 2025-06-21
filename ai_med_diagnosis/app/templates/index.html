@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Medical Diagnosis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #f0f4f8, #dbeafe);
+      font-family: 'Segoe UI', sans-serif;
+      padding-bottom: 50px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #4b5563;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    .preview-img {
+      max-height: 200px;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .result-box {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #e6ffed;
+      border-left: 6px solid #10b981;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+    .spinner-border {
+      display: none;
+      margin-left: 10px;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>AI Medical Diagnosis System</h1>
+    <p>Upload medical scans and reports. Our AI will assist in disease prediction.</p>
+  </div>
+
+  <div class="glass-card">
+    <form method="POST" enctype="multipart/form-data" onsubmit="return handleSubmit()">
+      <div class="mb-3">
+        <label for="image" class="form-label">X-ray / MRI Image <span class="text-danger">*</span></label>
+        <input type="file" name="image" id="image" class="form-control" required onchange="previewImage(event)">
+        <img id="imagePreview" class="preview-img"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="report" class="form-label">Medical Report (optional)</label>
+        <textarea name="report" id="report" rows="4" class="form-control" placeholder="Paste or type the patient's report..."></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="body_part" class="form-label">Body Part</label>
+        <select name="body_part" id="body_part" class="form-select">
+          <option value="brain">🧠 Brain</option>
+          <option value="chest">🫁 Chest</option>
+          <option value="spine">🦴 Spine</option>
+        </select>
+      </div>
+
+      <button id="submitBtn" type="submit" class="btn btn-primary w-100">
+        Predict Diagnosis
+        <span id="loadingSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </form>
+
+    {% if result %}
+    <div class="result-box mt-4">
+      <h5 class="fw-bold text-success">✅ Prediction Result</h5>
+      <ul class="mb-0">
+        <li><strong>🖼 Image Prediction:</strong> {{ result.prediction }} (Confidence: {{ result.confidence }})</li>
+        {% if result.text_prediction %}
+        <li><strong>📝 Report Prediction:</strong> {{ result.text_prediction }} (Confidence: {{ result.confidence }})</li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const preview = document.getElementById("imagePreview");
+      const file = event.target.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      }
+    }
+
+    function handleSubmit() {
+      document.getElementById("submitBtn").disabled = true;
+      document.getElementById("loadingSpinner").style.display = "inline-block";
+      return true;
+    }
+  </script>
+</body>
+</html>
